@@ -4,19 +4,12 @@ plugins {
     id "net.ltgt.apt-eclipse" version "0.21"
 }
 
-
-
 version "0.1"
 group "de.chkpnt"
 
 repositories {
     mavenCentral()
-    maven { url "https://jcenter.bintray.com" }
-}
-
-configurations {
-    // for dependencies that are needed for development only
-    developmentOnly 
+    jcenter()
 }
 
 dependencies {
@@ -52,8 +45,6 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
 }
 
-test.classpath += configurations.developmentOnly
-
 mainClassName = "de.chkpnt.Application"
 // use JUnit 5 platform
 test {
@@ -65,7 +56,6 @@ shadowJar {
 }
 
 tasks.withType(JavaExec) {
-    classpath += configurations.developmentOnly
     jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
 }
 tasks.withType(JavaCompile){
